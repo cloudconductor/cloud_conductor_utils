@@ -17,7 +17,7 @@ require 'json'
 require 'base64'
 
 module CloudConductorUtils
-  class ConsulUtil
+  class Consul
     CONSUL_KVS_URL = 'http://127.0.0.1:8500/v1/kv/cloudconductor'
     CONSUL_KVS_PARAMETERS_URL = "#{CONSUL_KVS_URL}/parameters"
     CONSUL_KVS_SERVERS_URL = "#{CONSUL_KVS_URL}/servers"
