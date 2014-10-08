@@ -1,4 +1,3 @@
-cloud_conductor_utils
-===================
+# CloudConductorUtils
 
-Utilities for CloudConductor Patterns
+Utilities for CloudConductor Patterns support to build patterns.
