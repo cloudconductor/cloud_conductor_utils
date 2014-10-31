@@ -1,4 +1,4 @@
-require "cloud_conductor_utils/version"
+require 'cloud_conductor_utils/version'
 
 module CloudConductorUtils
   # Your code goes here...
