@@ -24,7 +24,7 @@ module CloudConductorUtils
 
     def self.read_parameters
       begin
-        response = RestClient.get(CONSUL_KVS_PARAMETERS_URL)
+        response = RestClient.get("#{CONSUL_KVS_PARAMETERS_URL}?token=#{ENV['CONSUL_SECURITY_KEY']}")
         response_hash = JSON.parse(response, symbolize_names: true).first
         parameters_json = Base64.decode64(response_hash[:Value])
         parameters = JSON.parse(parameters_json, symbolize_names: true)
@@ -35,13 +35,13 @@ module CloudConductorUtils
     end
 
     def self.update_parameters(parameters)
-      RestClient.put(CONSUL_KVS_PARAMETERS_URL, parameters.to_json)
+      RestClient.put("#{CONSUL_KVS_PARAMETERS_URL}?token=#{ENV['CONSUL_SECURITY_KEY']}", parameters.to_json)
     end
 
     def self.read_servers
       begin
         servers = {}
-        response = RestClient.get("#{CONSUL_KVS_SERVERS_URL}?recurse")
+        response = RestClient.get("#{CONSUL_KVS_SERVERS_URL}?recurse&token=#{ENV['CONSUL_SECURITY_KEY']}")
         JSON.parse(response, symbolize_names: true).each do |response_hash|
           key = response_hash[:Key]
           next if key == 'cloudconductor/servers'
@@ -56,7 +56,7 @@ module CloudConductorUtils
     end
 
     def self.update_servers(hostname, server_info)
-      RestClient.put("#{CONSUL_KVS_SERVERS_URL}/#{hostname}", server_info.to_json)
+      RestClient.put("#{CONSUL_KVS_SERVERS_URL}/#{hostname}?token=#{ENV['CONSUL_SECURITY_KEY']}", server_info.to_json)
     end
   end
 end
